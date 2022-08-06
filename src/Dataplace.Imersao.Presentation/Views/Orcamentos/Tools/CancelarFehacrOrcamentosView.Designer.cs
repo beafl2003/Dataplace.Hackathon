@@ -145,7 +145,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(338, 122);
+            this.groupBox1.Size = new System.Drawing.Size(338, 123);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Situação do orçamento";
@@ -199,7 +199,7 @@
             this.rangeDate.Name = "rangeDate";
             this.rangeDate.OpenModal = false;
             this.rangeDate.Parameters = ((System.Collections.Generic.IDictionary<string, object>)(resources.GetObject("rangeDate.Parameters")));
-            this.rangeDate.Size = new System.Drawing.Size(464, 27);
+            this.rangeDate.Size = new System.Drawing.Size(420, 29);
             this.rangeDate.TabIndex = 0;
             this.rangeDate.TabOrderScheme = dpLibrary05.TabOrderManager.TabScheme.None;
             // 
@@ -214,7 +214,7 @@
             this.gbData.Margin = new System.Windows.Forms.Padding(4);
             this.gbData.Name = "gbData";
             this.gbData.Padding = new System.Windows.Forms.Padding(4);
-            this.gbData.Size = new System.Drawing.Size(487, 122);
+            this.gbData.Size = new System.Drawing.Size(475, 123);
             this.gbData.TabIndex = 0;
             this.gbData.TabStop = false;
             this.gbData.Text = "Filtrar por Data:";
