@@ -339,6 +339,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
 
              configuration.Property(x => x.NumOrcamento)
+                .HasCaption("Orçamento")
                 .HasButton(dpLibrary05.mGenerico.oImageList.imgList16.Images[dpLibrary05.mGenerico.oImageList.SETA_AZUL_PEQ], (sender, e) => {
                     var item = (OrcamentoViewModel)sender;
                     _eventAggregator.PublishEvent(new OrcamentoSetaAzulClick(item.NumOrcamento));
@@ -365,29 +366,29 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
             configuration.Property(x => x.DtOrcamento)
                 .HasMinWidth(80)
-                .HasCaption("Abertura")
+                .HasCaption("Dt Abertura")
                 .HasFormat("d");
 
             configuration.Property(x => x.VlTotal)
                 .HasMinWidth(80)
-                .HasCaption("Total")
+                .HasCaption("Valor Total")
                 .HasFormat("n");
 
 
             configuration.Property(x => x.DtFechamento)
                 .HasMinWidth(80)
-                .HasCaption("Fechamento")
+                .HasCaption("Dt Fechamento")
                 .HasFormat("d");
 
 
             configuration.Property(x => x.DataValidade)
                 .HasMinWidth(80)
-                .HasCaption("Validade")
+                .HasCaption("Dt Validade")
                 .HasFormat("d");
 
             configuration.Property(x => x.DtPrevEntrega)
              .HasMinWidth(80)
-             .HasCaption("Previsão Entrega")
+             .HasCaption("Dt Previsão Entrega")
              .HasFormat("d");
 
             return configuration;
