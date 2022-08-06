@@ -51,6 +51,7 @@
             this.optCancelar = new System.Windows.Forms.RadioButton();
             this.dpiCliente = new dpLibrary05.Infrastructure.Controls.DPInput();
             this.dpiVendedor = new dpLibrary05.Infrastructure.Controls.DPInput();
+            this.optReabrir = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridOrcamento)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -144,7 +145,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(338, 113);
+            this.groupBox1.Size = new System.Drawing.Size(338, 122);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Situação do orçamento";
@@ -266,6 +267,7 @@
             // 
             this.gbAcoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbAcoes.Controls.Add(this.optReabrir);
             this.gbAcoes.Controls.Add(this.optFechar);
             this.gbAcoes.Controls.Add(this.optCancelar);
             this.gbAcoes.Location = new System.Drawing.Point(4, 609);
@@ -284,10 +286,10 @@
             this.optFechar.Location = new System.Drawing.Point(217, 23);
             this.optFechar.Margin = new System.Windows.Forms.Padding(4);
             this.optFechar.Name = "optFechar";
-            this.optFechar.Size = new System.Drawing.Size(144, 21);
+            this.optFechar.Size = new System.Drawing.Size(147, 21);
             this.optFechar.TabIndex = 0;
             this.optFechar.TabStop = true;
-            this.optFechar.Text = "Fechar orçamento";
+            this.optFechar.Text = "Fechar Orçamento";
             this.optFechar.UseVisualStyleBackColor = true;
             // 
             // optCancelar
@@ -296,9 +298,9 @@
             this.optCancelar.Location = new System.Drawing.Point(53, 23);
             this.optCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.optCancelar.Name = "optCancelar";
-            this.optCancelar.Size = new System.Drawing.Size(156, 21);
+            this.optCancelar.Size = new System.Drawing.Size(159, 21);
             this.optCancelar.TabIndex = 6;
-            this.optCancelar.Text = "Cancelar orçamento";
+            this.optCancelar.Text = "Cancelar Orçamento";
             this.optCancelar.UseVisualStyleBackColor = true;
             // 
             // dpiCliente
@@ -356,6 +358,19 @@
             this.dpiVendedor.SettingValue = false;
             this.dpiVendedor.Size = new System.Drawing.Size(480, 48);
             this.dpiVendedor.TabIndex = 502;
+            // 
+            // optReabrir
+            // 
+            this.optReabrir.AutoSize = true;
+            this.optReabrir.Checked = true;
+            this.optReabrir.Location = new System.Drawing.Point(369, 23);
+            this.optReabrir.Margin = new System.Windows.Forms.Padding(4);
+            this.optReabrir.Name = "optReabrir";
+            this.optReabrir.Size = new System.Drawing.Size(150, 21);
+            this.optReabrir.TabIndex = 7;
+            this.optReabrir.TabStop = true;
+            this.optReabrir.Text = "Reabrir Orçamento";
+            this.optReabrir.UseVisualStyleBackColor = true;
             // 
             // CancelarFehacrOrcamentosView
             // 
@@ -418,5 +433,6 @@
         private dpLibrary05.Infrastructure.Controls.DPInput dpiCliente;
         private System.Windows.Forms.RadioButton optDtPrevisao;
         private dpLibrary05.Infrastructure.Controls.DPInput dpiVendedor;
+        private System.Windows.Forms.RadioButton optReabrir;
     }
 }

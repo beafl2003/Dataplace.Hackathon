@@ -70,6 +70,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             // pegar evento clique das opçoes
             this.optCancelar.Click += opt_Click;
             this.optFechar.Click += opt_Click;
+            this.optReabrir.Click += opt_Click;
 
             //Anna
 
@@ -131,6 +132,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         {
             CancelarOrcamento,
             FecharOrcamento,
+            ReabrirOrcamento,
         }
         private void CancelamentoOrcamentoView_ToolConfiguration(object sender, ToolConfigurationEventArgs e)
         {
@@ -151,6 +153,11 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
             if (optFechar.Checked)
                 _tipoAcao = TipoAcaoEnum.FecharOrcamento;
+
+
+            if (optReabrir.Checked)
+                _tipoAcao = TipoAcaoEnum.ReabrirOrcamento;
+
 
 
 
@@ -191,15 +198,56 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                 switch (acao)
                 {
                     case TipoAcaoEnum.CancelarOrcamento:
-                        await CancelarOrcamento(item);
+
+                        var resultadoCancelamento = await CancelarOrcamento(item);
                         // registrar log na parte de detalhes
-                        e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} cancelado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        if (resultadoCancelamento)
+
+                        {
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} cancelado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        }
+
+                        else
+                        {
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento}  não cancelado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                            MessageForm.Info("Não foi possível cancelar todos os Orçamentos selecionados, verifique");
+                        }
+
                         break;
+
                     case TipoAcaoEnum.FecharOrcamento:
-                        await FecharOrcamento(item);
+                        var resultadoFechamento = await FecharOrcamento(item);
                         // registrar log na parte de detalhes
-                        e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} fechado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        if (resultadoFechamento)
+                        {
+
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} fechado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        }
+                        else
+
+                        {
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento}  não fechado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                            MessageForm.Info("Não foi possível fechar todos os Orçamentos selecionados, verifique");
+                        }
                         break;
+
+                    case TipoAcaoEnum.ReabrirOrcamento:
+                        var resultadoReabertura = await ReabrirOrcamento(item);
+                        // registrar log na parte de detalhes
+
+                        if (resultadoReabertura)
+                        {
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} reaberto", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        }
+                        else
+                        {
+                            e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento}  não reaberto", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+
+                            MessageForm.Info("Não foi possível reabrir todos os Orçamentos selecionados, verifique");
+                        }
+                           
+                        break;
+
                     default:
                         break;
                 }
@@ -222,7 +270,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
 
             //  desmarcar todos itens no final do processo
-            // _orcamentoList.ChangeCheckState(false);
+             _orcamentoList.ChangeCheckState(false);
         }
 
         // teclas de atalho
@@ -249,11 +297,8 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
         #region list events
 
-        // exemplos conf list
-        //  configuration.AllowFilter();  >> permite filtro
-        //  configuration.AllowSort(); >> habilita ordenação
-        //  configuration.Ignore(x => x.CdVendedor); >> ignora 
-        // 
+       
+        
 
 
         // adicionar botão (nesse caso seta azul)
@@ -264,28 +309,6 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         //    });
 
 
-
-        // exemplode de destaque das linhas
-        //configuration.HasHighlight(x => {
-        //    // destacando somente cor da fonte
-        //    x.Add(orcamento => orcamento.StEntrega == "2", System.Drawing.Color.DarkOrange);
-
-        //    // exemplo para destacar a cor da fonte e cor de fundo da linha
-        //    x.Add(orcamento => orcamento.StEntrega == "2", new ViewModePropertyHighlightStyle()
-        //        .WithBackColor(System.Drawing.Color.DarkOrange)
-        //        .WithForeColor(System.Drawing.Color.White));
-        //});
-
-
-        // exemplo de tradução para valores na coluna
-        //configuration.Property(x => x.StAlgumaCoisa)
-        //   .HasCaption("St. validade")
-        //   .HasValueItems(x =>
-        //   {
-        //       x.Add("0", "texto para equivalente ao valor 0");
-        //       x.Add("1", "texto para equivalente ao valor 1");
-        //       x.Add("2", "texto para equivalente ao valor 2");
-        //   });
 
         private ViewModelListBuilder<OrcamentoViewModel> GetConfiguration()
         {
@@ -308,6 +331,15 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             configuration.Ignore(x => x.DiasValidade);
            // configuration.Ignore(x => x.DataValidade);
             configuration.Ignore(x => x.TotalItens);
+            configuration.AllowSort();
+            configuration.AllowFilter();
+
+            // configuration.Property(x => x.NumOrcamento)
+            //    .HasButton(dpLibrary05.mGenerico.oImageList.imgList16.Images[dpLibrary05.mGenerico.oImageList.SETA_AZUL_PEQ], (sender, e) => {
+            //        var item = (OrcamentoViewModel)sender;
+            //        _eventAggregator.PublishEvent(new OrcamentoSetaAzulClick(item.NumOrcamento));
+            //    });
+
 
             configuration.Property(x => x.Situacao)
                   .HasMinWidth(100)
@@ -448,7 +480,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         #endregion
 
         #region processamentos
-        private async Task CancelarOrcamento(OrcamentoViewModel item) 
+        private async Task<bool> CancelarOrcamento(OrcamentoViewModel item) 
         {
 
             using (var scope = dpLibrary05.Infrastructure.ServiceLocator.ServiceLocatorScoped.Factory())
@@ -465,12 +497,16 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                 {
                     item.Situacao = Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Cancelado.ToDataValue();
                 }
+                return item.Result.Success;
+
+
+
 
             }
 
         }
 
-        private async Task FecharOrcamento(OrcamentoViewModel item)
+        private async Task<bool>FecharOrcamento(OrcamentoViewModel item)
         {
 
             using (var scope = dpLibrary05.Infrastructure.ServiceLocator.ServiceLocatorScoped.Factory())
@@ -488,15 +524,39 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                     item.Situacao = Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Fechado.ToDataValue();
                     item.DtFechamento = DateTime.Now.Date;
                 }
+                return item.Result.Success;
+            }
+
+        }
+
+        private async Task <bool> ReabrirOrcamento(OrcamentoViewModel item)
+        {
+
+            using (var scope = dpLibrary05.Infrastructure.ServiceLocator.ServiceLocatorScoped.Factory())
+            {
+
+                var command = new ReabrirOrcamentoCommand(item);
+                var mediator = scope.Container.GetInstance<IMediatorHandler>();
+
+                var notifications = scope.Container.GetInstance<INotificationHandler<DomainNotification>>();
+                await mediator.SendCommand(command);
+
+                item.Result = Result.ResultFactory.New(notifications.GetNotifications());
+                if (item.Result.Success)
+                {
+                    item.Situacao = Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Aberto.ToDataValue();
+                    item.DtFechamento = null;
+                }
 
             }
+            return item.Result.Success;
 
         }
 
         #endregion
 
 
-       
-      
+
+
     }
 }
