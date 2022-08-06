@@ -14,6 +14,7 @@ using Dataplace.Imersao.Presentation.Views.Orcamentos.Messages;
 using dpLibrary05;
 using dpLibrary05.Infrastructure.Helpers;
 using dpLibrary05.Infrastructure.Helpers.Permission;
+using dpLibrary05.SymphonyInterface;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -84,8 +85,23 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             // pegar key down de um controle
             // dtpPrevisaoEntrega.KeyDown += Dtp_KeyDown;
 
-            dpiCliente.SearchObject = Common.PedidoSearch.find_cliente();
-            dpiVendedor.SearchObject = Common.PedidoSearch.find_vendedor();
+            dpiCliente.SearchObject = Common.PedidoSearch.find_cliente(new clsSymSearch.SearchArgs()
+            {
+                Fields = new List<clsSymInterfaceSearchField>() {
+                    new clsSymInterfaceSearchField() { SearchIndex=2, VisibleEdit =false },
+                    new clsSymInterfaceSearchField() { SearchIndex=4, VisibleEdit =false }
+                }
+            });
+
+            dpiVendedor.SearchObject = Common.PedidoSearch.find_vendedor(new clsSymSearch.SearchArgs()
+            {
+                Fields = new List<clsSymInterfaceSearchField>() {
+                    new clsSymInterfaceSearchField() { SearchIndex=2, VisibleEdit =false },
+                    new clsSymInterfaceSearchField() { SearchIndex=3, VisibleEdit =false },
+                    new clsSymInterfaceSearchField() { SearchIndex=4, VisibleEdit =false },
+                    new clsSymInterfaceSearchField() { SearchIndex=4, VisibleEdit =false }
+                }
+            });
 
                
 

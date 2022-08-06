@@ -42,14 +42,14 @@
             this.chkFechado = new System.Windows.Forms.CheckBox();
             this.rangeDate = new dpLibrary05.ucSymGen_ReferenceDtp();
             this.gbData = new System.Windows.Forms.GroupBox();
+            this.optDtPrevisao = new System.Windows.Forms.RadioButton();
+            this.optDtFechamento = new System.Windows.Forms.RadioButton();
+            this.optDtAbertura = new System.Windows.Forms.RadioButton();
             this.optDtValidade = new System.Windows.Forms.RadioButton();
             this.gbAcoes = new System.Windows.Forms.GroupBox();
             this.optFechar = new System.Windows.Forms.RadioButton();
             this.optCancelar = new System.Windows.Forms.RadioButton();
-            this.optDtAbertura = new System.Windows.Forms.RadioButton();
-            this.optDtFechamento = new System.Windows.Forms.RadioButton();
             this.dpiCliente = new dpLibrary05.Infrastructure.Controls.DPInput();
-            this.optDtPrevisao = new System.Windows.Forms.RadioButton();
             this.dpiVendedor = new dpLibrary05.Infrastructure.Controls.DPInput();
             ((System.ComponentModel.ISupportInitialize)(this.gridOrcamento)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -218,6 +218,39 @@
             this.gbData.TabStop = false;
             this.gbData.Text = "Filtrar por Data:";
             // 
+            // optDtPrevisao
+            // 
+            this.optDtPrevisao.AutoSize = true;
+            this.optDtPrevisao.Location = new System.Drawing.Point(147, 56);
+            this.optDtPrevisao.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtPrevisao.Name = "optDtPrevisao";
+            this.optDtPrevisao.Size = new System.Drawing.Size(138, 21);
+            this.optDtPrevisao.TabIndex = 11;
+            this.optDtPrevisao.Text = "Previsão Entrega";
+            this.optDtPrevisao.UseVisualStyleBackColor = true;
+            // 
+            // optDtFechamento
+            // 
+            this.optDtFechamento.AutoSize = true;
+            this.optDtFechamento.Location = new System.Drawing.Point(147, 31);
+            this.optDtFechamento.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtFechamento.Name = "optDtFechamento";
+            this.optDtFechamento.Size = new System.Drawing.Size(107, 21);
+            this.optDtFechamento.TabIndex = 10;
+            this.optDtFechamento.Text = "Fechamento";
+            this.optDtFechamento.UseVisualStyleBackColor = true;
+            // 
+            // optDtAbertura
+            // 
+            this.optDtAbertura.AutoSize = true;
+            this.optDtAbertura.Location = new System.Drawing.Point(20, 56);
+            this.optDtAbertura.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtAbertura.Name = "optDtAbertura";
+            this.optDtAbertura.Size = new System.Drawing.Size(84, 21);
+            this.optDtAbertura.TabIndex = 9;
+            this.optDtAbertura.Text = "Abertura";
+            this.optDtAbertura.UseVisualStyleBackColor = true;
+            // 
             // optDtValidade
             // 
             this.optDtValidade.AutoSize = true;
@@ -268,28 +301,6 @@
             this.optCancelar.Text = "Cancelar orçamento";
             this.optCancelar.UseVisualStyleBackColor = true;
             // 
-            // optDtAbertura
-            // 
-            this.optDtAbertura.AutoSize = true;
-            this.optDtAbertura.Location = new System.Drawing.Point(20, 56);
-            this.optDtAbertura.Margin = new System.Windows.Forms.Padding(4);
-            this.optDtAbertura.Name = "optDtAbertura";
-            this.optDtAbertura.Size = new System.Drawing.Size(84, 21);
-            this.optDtAbertura.TabIndex = 9;
-            this.optDtAbertura.Text = "Abertura";
-            this.optDtAbertura.UseVisualStyleBackColor = true;
-            // 
-            // optDtFechamento
-            // 
-            this.optDtFechamento.AutoSize = true;
-            this.optDtFechamento.Location = new System.Drawing.Point(147, 31);
-            this.optDtFechamento.Margin = new System.Windows.Forms.Padding(4);
-            this.optDtFechamento.Name = "optDtFechamento";
-            this.optDtFechamento.Size = new System.Drawing.Size(107, 21);
-            this.optDtFechamento.TabIndex = 10;
-            this.optDtFechamento.Text = "Fechamento";
-            this.optDtFechamento.UseVisualStyleBackColor = true;
-            // 
             // dpiCliente
             // 
             this.dpiCliente.Active = false;
@@ -317,17 +328,6 @@
             this.dpiCliente.SettingValue = false;
             this.dpiCliente.Size = new System.Drawing.Size(480, 52);
             this.dpiCliente.TabIndex = 501;
-            // 
-            // optDtPrevisao
-            // 
-            this.optDtPrevisao.AutoSize = true;
-            this.optDtPrevisao.Location = new System.Drawing.Point(147, 56);
-            this.optDtPrevisao.Margin = new System.Windows.Forms.Padding(4);
-            this.optDtPrevisao.Name = "optDtPrevisao";
-            this.optDtPrevisao.Size = new System.Drawing.Size(138, 21);
-            this.optDtPrevisao.TabIndex = 11;
-            this.optDtPrevisao.Text = "Previsão Entrega";
-            this.optDtPrevisao.UseVisualStyleBackColor = true;
             // 
             // dpiVendedor
             // 
