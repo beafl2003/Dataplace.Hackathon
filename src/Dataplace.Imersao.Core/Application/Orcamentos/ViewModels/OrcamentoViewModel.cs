@@ -24,6 +24,8 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.ViewModels
         public int? DiasValidade { get; set; }
         public DateTime? DataValidade { get; set; }
 
+        public DateTime DtPrevEntrega { get; set; }
+
 
         // exemplo de propriedade desconectada do banco de dados
         //public string StValidade { 
@@ -36,7 +38,7 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.ViewModels
         //            return "1";
 
         //        return "2";
-            
+
         //    } 
         //}
 

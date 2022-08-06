@@ -3,7 +3,6 @@ using Dataplace.Core.Shared.Catalog.Produto.Queries;
 using Dataplace.Core.Shared.Catalog.Produto.ViewModels;
 using Dataplace.Core.win.Views;
 using Dataplace.Core.win.Views.Extensions;
-using Dataplace.Core.win.Views.Providers;
 using Dataplace.Imersao.Core.Application.Behaviors;
 using Dataplace.Imersao.Core.Application.Produtos.Queries;
 using Dataplace.Imersao.Core.Domain.Orcamentos.Repositories;
@@ -58,12 +57,6 @@ namespace Dataplace.Imersao.App
             // presentation - view provider
             services.AddRegisterViewProvider<InterfaceView, OrcamentoViewProvider>();
             services.AddRegisterViewProvider<InterfaceView, OrcamentoItemViewProvider>();
-            services.AddRegisterViewProvider<SelectableListView, ClienteListViewProvider>();
-
-
-            //dpLibrary05.BootStrapper.Container.RegisterViewProvider<SelectableListView, ClienteListViewProvider>();
-
-            
 
 
             // product query

@@ -42,13 +42,15 @@
             this.chkFechado = new System.Windows.Forms.CheckBox();
             this.rangeDate = new dpLibrary05.ucSymGen_ReferenceDtp();
             this.gbData = new System.Windows.Forms.GroupBox();
+            this.optDtValidade = new System.Windows.Forms.RadioButton();
             this.gbAcoes = new System.Windows.Forms.GroupBox();
             this.optFechar = new System.Windows.Forms.RadioButton();
             this.optCancelar = new System.Windows.Forms.RadioButton();
-            this.txtFiltro = new System.Windows.Forms.TextBox();
-            this.dpiVendedor = new dpLibrary05.Infrastructure.Controls.DPInput();
+            this.optDtAbertura = new System.Windows.Forms.RadioButton();
+            this.optDtFechamento = new System.Windows.Forms.RadioButton();
             this.dpiCliente = new dpLibrary05.Infrastructure.Controls.DPInput();
-            this.chkSelCliente = new System.Windows.Forms.CheckBox();
+            this.optDtPrevisao = new System.Windows.Forms.RadioButton();
+            this.dpiVendedor = new dpLibrary05.Infrastructure.Controls.DPInput();
             ((System.ComponentModel.ISupportInitialize)(this.gridOrcamento)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,7 +65,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridOrcamento.GroupByCaption = "Drag a column header here to group by that column";
             this.gridOrcamento.Images.Add(((System.Drawing.Image)(resources.GetObject("gridOrcamento.Images"))));
-            this.gridOrcamento.Location = new System.Drawing.Point(3, 209);
+            this.gridOrcamento.Location = new System.Drawing.Point(48, 147);
             this.gridOrcamento.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridOrcamento.Name = "gridOrcamento";
             this.gridOrcamento.PreviewInfo.Location = new System.Drawing.Point(0, 0);
@@ -72,7 +74,7 @@
             this.gridOrcamento.PrintInfo.MeasurementDevice = C1.Win.C1TrueDBGrid.PrintInfo.MeasurementDeviceEnum.Screen;
             this.gridOrcamento.PrintInfo.MeasurementPrinterName = null;
             this.gridOrcamento.PrintInfo.PageSettings = ((System.Drawing.Printing.PageSettings)(resources.GetObject("gridOrcamento.PrintInfo.PageSettings")));
-            this.gridOrcamento.Size = new System.Drawing.Size(1341, 364);
+            this.gridOrcamento.Size = new System.Drawing.Size(1241, 456);
             this.gridOrcamento.TabIndex = 3;
             this.gridOrcamento.UseCompatibleTextRendering = false;
             this.gridOrcamento.PropBag = resources.GetString("gridOrcamento.PropBag");
@@ -80,7 +82,7 @@
             // btnCarregar
             // 
             this.btnCarregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCarregar.Location = new System.Drawing.Point(1233, 46);
+            this.btnCarregar.Location = new System.Drawing.Point(1213, 113);
             this.btnCarregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCarregar.Name = "btnCarregar";
             this.btnCarregar.Size = new System.Drawing.Size(109, 30);
@@ -142,7 +144,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(361, 71);
+            this.groupBox1.Size = new System.Drawing.Size(338, 113);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Situação do orçamento";
@@ -155,7 +157,7 @@
             this.chkAberto.Location = new System.Drawing.Point(15, 31);
             this.chkAberto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkAberto.Name = "chkAberto";
-            this.chkAberto.Size = new System.Drawing.Size(69, 20);
+            this.chkAberto.Size = new System.Drawing.Size(72, 21);
             this.chkAberto.TabIndex = 0;
             this.chkAberto.Text = "Aberto";
             this.chkAberto.UseVisualStyleBackColor = true;
@@ -166,7 +168,7 @@
             this.chkCancelado.Location = new System.Drawing.Point(231, 31);
             this.chkCancelado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkCancelado.Name = "chkCancelado";
-            this.chkCancelado.Size = new System.Drawing.Size(95, 20);
+            this.chkCancelado.Size = new System.Drawing.Size(97, 21);
             this.chkCancelado.TabIndex = 2;
             this.chkCancelado.Text = "Cancelado";
             this.chkCancelado.UseVisualStyleBackColor = true;
@@ -177,7 +179,7 @@
             this.chkFechado.Location = new System.Drawing.Point(115, 31);
             this.chkFechado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkFechado.Name = "chkFechado";
-            this.chkFechado.Size = new System.Drawing.Size(83, 20);
+            this.chkFechado.Size = new System.Drawing.Size(85, 21);
             this.chkFechado.TabIndex = 1;
             this.chkFechado.Text = "Fechado";
             this.chkFechado.UseVisualStyleBackColor = true;
@@ -191,8 +193,8 @@
             this.rangeDate.KeyPreview = false;
             this.rangeDate.Label1Text = dpLibrary05.ucSymGen_ReferenceDtp.LabelTextEnum.TFrom;
             this.rangeDate.Label2Text = dpLibrary05.ucSymGen_ReferenceDtp.LabelTextEnum.TTo;
-            this.rangeDate.Location = new System.Drawing.Point(9, 25);
-            this.rangeDate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.rangeDate.Location = new System.Drawing.Point(9, 86);
+            this.rangeDate.Margin = new System.Windows.Forms.Padding(5);
             this.rangeDate.Name = "rangeDate";
             this.rangeDate.OpenModal = false;
             this.rangeDate.Parameters = ((System.Collections.Generic.IDictionary<string, object>)(resources.GetObject("rangeDate.Parameters")));
@@ -202,15 +204,30 @@
             // 
             // gbData
             // 
+            this.gbData.Controls.Add(this.optDtPrevisao);
+            this.gbData.Controls.Add(this.optDtFechamento);
+            this.gbData.Controls.Add(this.optDtAbertura);
+            this.gbData.Controls.Add(this.optDtValidade);
             this.gbData.Controls.Add(this.rangeDate);
             this.gbData.Location = new System.Drawing.Point(4, 4);
-            this.gbData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbData.Margin = new System.Windows.Forms.Padding(4);
             this.gbData.Name = "gbData";
-            this.gbData.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbData.Size = new System.Drawing.Size(487, 71);
+            this.gbData.Padding = new System.Windows.Forms.Padding(4);
+            this.gbData.Size = new System.Drawing.Size(487, 122);
             this.gbData.TabIndex = 0;
             this.gbData.TabStop = false;
-            this.gbData.Text = "Data do orçamento";
+            this.gbData.Text = "Filtrar por Data:";
+            // 
+            // optDtValidade
+            // 
+            this.optDtValidade.AutoSize = true;
+            this.optDtValidade.Location = new System.Drawing.Point(20, 30);
+            this.optDtValidade.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtValidade.Name = "optDtValidade";
+            this.optDtValidade.Size = new System.Drawing.Size(84, 21);
+            this.optDtValidade.TabIndex = 7;
+            this.optDtValidade.Text = "Validade";
+            this.optDtValidade.UseVisualStyleBackColor = true;
             // 
             // gbAcoes
             // 
@@ -218,11 +235,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbAcoes.Controls.Add(this.optFechar);
             this.gbAcoes.Controls.Add(this.optCancelar);
-            this.gbAcoes.Location = new System.Drawing.Point(4, 580);
-            this.gbAcoes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbAcoes.Location = new System.Drawing.Point(4, 609);
+            this.gbAcoes.Margin = new System.Windows.Forms.Padding(4);
             this.gbAcoes.Name = "gbAcoes";
-            this.gbAcoes.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbAcoes.Size = new System.Drawing.Size(1339, 87);
+            this.gbAcoes.Padding = new System.Windows.Forms.Padding(4);
+            this.gbAcoes.Size = new System.Drawing.Size(1339, 58);
             this.gbAcoes.TabIndex = 4;
             this.gbAcoes.TabStop = false;
             this.gbAcoes.Text = "O que deseja fazer?";
@@ -231,10 +248,10 @@
             // 
             this.optFechar.AutoSize = true;
             this.optFechar.Checked = true;
-            this.optFechar.Location = new System.Drawing.Point(32, 52);
-            this.optFechar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.optFechar.Location = new System.Drawing.Point(217, 23);
+            this.optFechar.Margin = new System.Windows.Forms.Padding(4);
             this.optFechar.Name = "optFechar";
-            this.optFechar.Size = new System.Drawing.Size(137, 20);
+            this.optFechar.Size = new System.Drawing.Size(144, 21);
             this.optFechar.TabIndex = 0;
             this.optFechar.TabStop = true;
             this.optFechar.Text = "Fechar orçamento";
@@ -243,48 +260,35 @@
             // optCancelar
             // 
             this.optCancelar.AutoSize = true;
-            this.optCancelar.Location = new System.Drawing.Point(32, 23);
-            this.optCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.optCancelar.Location = new System.Drawing.Point(53, 23);
+            this.optCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.optCancelar.Name = "optCancelar";
-            this.optCancelar.Size = new System.Drawing.Size(149, 20);
+            this.optCancelar.Size = new System.Drawing.Size(156, 21);
             this.optCancelar.TabIndex = 6;
             this.optCancelar.Text = "Cancelar orçamento";
             this.optCancelar.UseVisualStyleBackColor = true;
             // 
-            // txtFiltro
+            // optDtAbertura
             // 
-            this.txtFiltro.Location = new System.Drawing.Point(864, 4);
-            this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.Size = new System.Drawing.Size(296, 22);
-            this.txtFiltro.TabIndex = 501;
+            this.optDtAbertura.AutoSize = true;
+            this.optDtAbertura.Location = new System.Drawing.Point(20, 56);
+            this.optDtAbertura.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtAbertura.Name = "optDtAbertura";
+            this.optDtAbertura.Size = new System.Drawing.Size(84, 21);
+            this.optDtAbertura.TabIndex = 9;
+            this.optDtAbertura.Text = "Abertura";
+            this.optDtAbertura.UseVisualStyleBackColor = true;
             // 
-            // dpiVendedor
+            // optDtFechamento
             // 
-            this.dpiVendedor.Active = false;
-            this.dpiVendedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dpiVendedor.DataSource = null;
-            this.dpiVendedor.DP_Caption = "Usuário";
-            this.dpiVendedor.DP_CaptionVisibleType = dpLibrary05.Infrastructure.Controls.DPInput.CaptionVisibleTypeEnum.Top;
-            this.dpiVendedor.DP_DataField = null;
-            this.dpiVendedor.DP_FilterMemo = false;
-            this.dpiVendedor.DP_InputType = dpLibrary05.Infrastructure.Controls.DPInput.InputTypeEnum.SearchValueInput;
-            this.dpiVendedor.DP_Length = 0;
-            this.dpiVendedor.DP_Maximum = null;
-            this.dpiVendedor.DP_Minimum = null;
-            this.dpiVendedor.DP_NumericPrecision = 0;
-            this.dpiVendedor.EditMask = null;
-            this.dpiVendedor.EditMaskUpdate = false;
-            this.dpiVendedor.FindMode = false;
-            this.dpiVendedor.InterfaceField = null;
-            this.dpiVendedor.IsReadonly = false;
-            this.dpiVendedor.Location = new System.Drawing.Point(865, 32);
-            this.dpiVendedor.Margin = new System.Windows.Forms.Padding(4);
-            this.dpiVendedor.Multiline = false;
-            this.dpiVendedor.Name = "dpiVendedor";
-            this.dpiVendedor.SearchObject = null;
-            this.dpiVendedor.SettingValue = false;
-            this.dpiVendedor.Size = new System.Drawing.Size(361, 43);
-            this.dpiVendedor.TabIndex = 502;
+            this.optDtFechamento.AutoSize = true;
+            this.optDtFechamento.Location = new System.Drawing.Point(147, 31);
+            this.optDtFechamento.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtFechamento.Name = "optDtFechamento";
+            this.optDtFechamento.Size = new System.Drawing.Size(107, 21);
+            this.optDtFechamento.TabIndex = 10;
+            this.optDtFechamento.Text = "Fechamento";
+            this.optDtFechamento.UseVisualStyleBackColor = true;
             // 
             // dpiCliente
             // 
@@ -305,34 +309,60 @@
             this.dpiCliente.FindMode = false;
             this.dpiCliente.InterfaceField = null;
             this.dpiCliente.IsReadonly = false;
-            this.dpiCliente.Location = new System.Drawing.Point(83, 92);
+            this.dpiCliente.Location = new System.Drawing.Point(842, 4);
             this.dpiCliente.Margin = new System.Windows.Forms.Padding(4);
             this.dpiCliente.Multiline = false;
             this.dpiCliente.Name = "dpiCliente";
             this.dpiCliente.SearchObject = null;
             this.dpiCliente.SettingValue = false;
-            this.dpiCliente.Size = new System.Drawing.Size(1005, 43);
-            this.dpiCliente.TabIndex = 503;
+            this.dpiCliente.Size = new System.Drawing.Size(480, 52);
+            this.dpiCliente.TabIndex = 501;
             // 
-            // chkSelCliente
+            // optDtPrevisao
             // 
-            this.chkSelCliente.AutoSize = true;
-            this.chkSelCliente.Location = new System.Drawing.Point(137, 152);
-            this.chkSelCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.chkSelCliente.Name = "chkSelCliente";
-            this.chkSelCliente.Size = new System.Drawing.Size(138, 20);
-            this.chkSelCliente.TabIndex = 3;
-            this.chkSelCliente.Text = "Selecionar Cliente";
-            this.chkSelCliente.UseVisualStyleBackColor = true;
+            this.optDtPrevisao.AutoSize = true;
+            this.optDtPrevisao.Location = new System.Drawing.Point(147, 56);
+            this.optDtPrevisao.Margin = new System.Windows.Forms.Padding(4);
+            this.optDtPrevisao.Name = "optDtPrevisao";
+            this.optDtPrevisao.Size = new System.Drawing.Size(138, 21);
+            this.optDtPrevisao.TabIndex = 11;
+            this.optDtPrevisao.Text = "Previsão Entrega";
+            this.optDtPrevisao.UseVisualStyleBackColor = true;
+            // 
+            // dpiVendedor
+            // 
+            this.dpiVendedor.Active = false;
+            this.dpiVendedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dpiVendedor.DataSource = null;
+            this.dpiVendedor.DP_Caption = "Vendedor";
+            this.dpiVendedor.DP_CaptionVisibleType = dpLibrary05.Infrastructure.Controls.DPInput.CaptionVisibleTypeEnum.Top;
+            this.dpiVendedor.DP_DataField = null;
+            this.dpiVendedor.DP_FilterMemo = false;
+            this.dpiVendedor.DP_InputType = dpLibrary05.Infrastructure.Controls.DPInput.InputTypeEnum.SearchValueInput;
+            this.dpiVendedor.DP_Length = 0;
+            this.dpiVendedor.DP_Maximum = null;
+            this.dpiVendedor.DP_Minimum = null;
+            this.dpiVendedor.DP_NumericPrecision = 0;
+            this.dpiVendedor.EditMask = null;
+            this.dpiVendedor.EditMaskUpdate = false;
+            this.dpiVendedor.FindMode = false;
+            this.dpiVendedor.InterfaceField = null;
+            this.dpiVendedor.IsReadonly = false;
+            this.dpiVendedor.Location = new System.Drawing.Point(842, 59);
+            this.dpiVendedor.Margin = new System.Windows.Forms.Padding(4);
+            this.dpiVendedor.Multiline = false;
+            this.dpiVendedor.Name = "dpiVendedor";
+            this.dpiVendedor.SearchObject = null;
+            this.dpiVendedor.SettingValue = false;
+            this.dpiVendedor.Size = new System.Drawing.Size(480, 48);
+            this.dpiVendedor.TabIndex = 502;
             // 
             // CancelarFehacrOrcamentosView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.chkSelCliente);
-            this.Controls.Add(this.dpiCliente);
             this.Controls.Add(this.dpiVendedor);
-            this.Controls.Add(this.txtFiltro);
+            this.Controls.Add(this.dpiCliente);
             this.Controls.Add(this.gbAcoes);
             this.Controls.Add(this.gbData);
             this.Controls.Add(this.groupBox1);
@@ -348,16 +378,15 @@
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.gbData, 0);
             this.Controls.SetChildIndex(this.gbAcoes, 0);
-            this.Controls.SetChildIndex(this.txtFiltro, 0);
-            this.Controls.SetChildIndex(this.dpiVendedor, 0);
             this.Controls.SetChildIndex(this.dpiCliente, 0);
-            this.Controls.SetChildIndex(this.chkSelCliente, 0);
+            this.Controls.SetChildIndex(this.dpiVendedor, 0);
             ((System.ComponentModel.ISupportInitialize)(this.gridOrcamento)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gbData.ResumeLayout(false);
+            this.gbData.PerformLayout();
             this.gbAcoes.ResumeLayout(false);
             this.gbAcoes.PerformLayout();
             this.ResumeLayout(false);
@@ -383,9 +412,11 @@
         private System.Windows.Forms.GroupBox gbAcoes;
         private System.Windows.Forms.RadioButton optFechar;
         private System.Windows.Forms.RadioButton optCancelar;
-        private System.Windows.Forms.TextBox txtFiltro;
-        private dpLibrary05.Infrastructure.Controls.DPInput dpiVendedor;
+        private System.Windows.Forms.RadioButton optDtValidade;
+        private System.Windows.Forms.RadioButton optDtAbertura;
+        private System.Windows.Forms.RadioButton optDtFechamento;
         private dpLibrary05.Infrastructure.Controls.DPInput dpiCliente;
-        private System.Windows.Forms.CheckBox chkSelCliente;
+        private System.Windows.Forms.RadioButton optDtPrevisao;
+        private dpLibrary05.Infrastructure.Controls.DPInput dpiVendedor;
     }
 }

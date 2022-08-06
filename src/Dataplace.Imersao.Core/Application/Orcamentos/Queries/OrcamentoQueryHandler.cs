@@ -85,11 +85,34 @@ namespace Dataplace.Imersao.Core.Application.Orcamentos.Queries
             if (request.SituacaoList != null && request.SituacaoList.Count > 0)
                 builder.Where($"orcamento.StOrcamento IN ('{string.Join("','", request.SituacaoList.Select(x => x.ToDataValue()))}')");
 
-            if(request.DtInicio.HasValue && request.DtFim.HasValue)
-                builder.Where("orcamento.DtOrcamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+            if (request.DtInicio.HasValue && request.DtFim.HasValue)
+            {
 
-            if (request.CdClienteList != null && request.CdClienteList.Count > 0)
-                builder.Where($"orcamento.cdCliente IN ('{string.Join("','", request.CdClienteList.Select(x => x))}')");
+                if (request.Validade)
+                {
+                    builder.Where("orcamento.dtvalidade between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+                }
+
+                if (request.Abertura)
+
+                { 
+                    builder.Where("orcamento.DtOrcamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+                }
+                if (request.Fechamento)
+
+                {
+                    builder.Where("orcamento.DtFechamento between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+                }
+
+                if(request.PrevisaoEntrega)
+
+                {
+                    builder.Where("(SELECT MIN(OrcamentoItem.dtpreventrega) FROM OrcamentoItem where OrcamentoItem.numorcamento = Orcamento.numorcamento and OrcamentoItem.CdEmpresa = Orcamento.CdEmpresa AND OrcamentoItem.CdFilial = Orcamento.CdFilial) between @DtInicio AND @DtFim ", new { DtInicio = request.DtInicio.Value.Date, DtFim = request.DtFim.Value.Date.AddDays(1).AddSeconds(-1) });
+                }
+
+                
+
+            }
 
 
             builder.OrderBy("orcamento.DtOrcamento DESC");
