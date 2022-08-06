@@ -267,6 +267,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos
             };
             _searchVendedor = dpLibrary05.Infrastructure.Helpers.clsSymSearch.find_vendedor(prmVendendor);
 
+
             return _searchVendedor;
 
         }

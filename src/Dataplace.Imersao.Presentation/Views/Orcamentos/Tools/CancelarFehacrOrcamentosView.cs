@@ -3,16 +3,22 @@ using Dataplace.Core.Comunications;
 using Dataplace.Core.Domain.Localization.Messages.Extensions;
 using Dataplace.Core.Domain.Notifications;
 using Dataplace.Core.Infra.CrossCutting.EventAggregator.Contracts;
+using Dataplace.Core.win.Controls.Extensions;
 using Dataplace.Core.win.Controls.List.Behaviors;
 using Dataplace.Core.win.Controls.List.Behaviors.Contracts;
 using Dataplace.Core.win.Controls.List.Configurations;
+using Dataplace.Core.win.Views;
+using Dataplace.Core.win.Views.Extensions;
+using Dataplace.Imersao.Core.Application.Clientes.ViewModels;
 using Dataplace.Imersao.Core.Application.Orcamentos.Commands;
 using Dataplace.Imersao.Core.Application.Orcamentos.Queries;
 using Dataplace.Imersao.Core.Application.Orcamentos.ViewModels;
 using Dataplace.Imersao.Core.Domain.Orcamentos.Enums;
 using Dataplace.Imersao.Presentation.Views.Orcamentos.Messages;
+using Dataplace.Imersao.Presentation.Views.Providers;
 using dpLibrary05.Infrastructure.Helpers;
 using dpLibrary05.Infrastructure.Helpers.Permission;
+using dpLibrary05.SymphonyInterface;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -31,6 +37,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         private IListBehavior<OrcamentoViewModel, OrcamentoQuery> _orcamentoList;
         private readonly IServiceProvider _serviceProvider;
         private readonly IEventAggregator _eventAggregator;
+        private IList<ClienteViewModel> _clientesSelecionados;
         #endregion
 
         #region constructors
@@ -77,14 +84,39 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             // pegar key down de um controle
             // dtpPrevisaoEntrega.KeyDown += Dtp_KeyDown;
 
-
+            dpiVendedor.SearchObject = GetSearchVendedor();
+            //dpiVendedor.SearchObject = Common.PedidoSearch.find_usuario();
+            dpiCliente.SearchObject = Common.PedidoSearch.find_cliente( new clsSymSearch.SearchArgs()
+            {
+                Fields = new List<clsSymInterfaceSearchField>() { 
+                    new clsSymInterfaceSearchField() { SearchIndex=2, VisibleEdit =false },
+                    new clsSymInterfaceSearchField() { SearchIndex=4, VisibleEdit =false }
+                }
+            });
 
             // rotina para validar status do controle
             //  desabilitar ou habilitar algun componente em tela
             //  deixar invisível ou algo assim
+
+
+
+            var clienteViewProvicer = dpLibrary05.BootStrapper.Container.GetViewProvider<SelectableListView, ClienteListViewProvider>();
+            chkSelCliente.ConfigureSelector(clienteViewProvicer, itens => {
+                _clientesSelecionados = itens.ToList();
+            });
+
+
             VerificarStatusControles();
-   
+
+            _orcamentoList.DataSourceChanged += _orcamentoList_DataSourceChanged;
         }
+        private void _orcamentoList_DataSourceChanged(object sender, Dataplace.Core.win.Controls.List.Delegates.DataSourceChangedEventArgs<OrcamentoViewModel> e)
+        {
+            gridOrcamento.Splits[0].DisplayColumns["DtFechamento"].Style.HorizontalAlignment = C1.Win.C1TrueDBGrid.AlignHorzEnum.Far;
+        }
+
+
+
         #endregion
 
         #region tool events
@@ -94,6 +126,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         {
             CancelarOrcamento,
             FecharOrcamento,
+            nova
         }
         private void CancelamentoOrcamentoView_ToolConfiguration(object sender, ToolConfigurationEventArgs e)
         {
@@ -114,6 +147,9 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
             if (optFechar.Checked)
                 _tipoAcao = TipoAcaoEnum.FecharOrcamento;
+
+            //if (optNovo.Checked)
+            //    _tipoAcao = TipoAcaoEnum.nova;
 
 
 
@@ -160,6 +196,11 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                         break;
                     case TipoAcaoEnum.FecharOrcamento:
                         await FecharOrcamento(item);
+                        // registrar log na parte de detalhes
+                        e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} fechado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
+                        break;
+                    case TipoAcaoEnum.nova:
+                        await Nova(item);
                         // registrar log na parte de detalhes
                         e.LogBuilder.Items.Add($"Orçamento {item.NumOrcamento} fechado", dpLibrary05.Infrastructure.Helpers.LogBuilder.LogTypeEnum.Information);
                         break;
@@ -254,8 +295,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         {
             var configuration = new ViewModelListBuilder<OrcamentoViewModel>();
 
-         
-
+  
             configuration.HasHighlight(x => {
                 x.Add(orcamento => orcamento.Situacao == Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Cancelado.ToDataValue(), System.Drawing.Color.Red);
             });
@@ -318,7 +358,8 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                 situacaoList.Add(Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Fechado);
             if (chkCancelado.Checked)
                 situacaoList.Add(Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Cancelado);
-  
+
+          
 
             DateTime? dtInicio = null;
             DateTime? dtFim = null;
@@ -328,7 +369,17 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             if (rangeDate.Date2.Value is DateTime d2)
                 dtFim = d2;
 
-            var query = new OrcamentoQuery() { SituacaoList = situacaoList, DtInicio =  dtInicio, DtFim =  dtFim };
+
+            var filtro = txtFiltro.Text;
+
+            var cdClienteList = _clientesSelecionados?.Select(x => x.CdCliente).ToList();
+
+            var query = new OrcamentoQuery() { 
+                SituacaoList = situacaoList, 
+                DtInicio =  dtInicio, 
+                DtFim =  dtFim, 
+                Filtro = filtro, 
+                CdClienteList = cdClienteList };
             return query;
         }
 
@@ -415,6 +466,65 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
                 }
 
             }
+
+        }
+
+
+        private async Task Nova(OrcamentoViewModel item)
+        {
+
+            using (var scope = dpLibrary05.Infrastructure.ServiceLocator.ServiceLocatorScoped.Factory())
+            {
+
+                var command = new FecharOrcamentoCommand(item);
+                var mediator = scope.Container.GetInstance<IMediatorHandler>();
+
+                var notifications = scope.Container.GetInstance<INotificationHandler<DomainNotification>>();
+                await mediator.SendCommand(command);
+
+                item.Result = Result.ResultFactory.New(notifications.GetNotifications());
+                if (item.Result.Success)
+                {
+                    item.Situacao = Core.Domain.Orcamentos.Enums.OrcamentoStatusEnum.Fechado.ToDataValue();
+                    item.DtFechamento = DateTime.Now.Date;
+                }
+
+            }
+
+        }
+
+        #endregion
+
+        #region pesquisas
+        private ISymInterfaceSearch _searchVendedor;
+
+        private ISymInterfaceSearch GetSearchVendedor()
+        {
+            if (_searchVendedor != null)
+                return _searchVendedor;
+
+            var prmVendendor = new dpLibrary05.Infrastructure.Helpers.clsSymSearch.SearchArgs()
+            {
+                Fields = new List<dpLibrary05.SymphonyInterface.clsSymInterfaceSearchField>()
+                {
+                    new dpLibrary05.SymphonyInterface.clsSymInterfaceSearchField(){
+                        SearchIndex = 2,
+                        VisibleEdit = false
+                    },
+                    new dpLibrary05.SymphonyInterface.clsSymInterfaceSearchField(){
+                        SearchIndex = 3,
+                        VisibleEdit = false
+                    },
+                    new dpLibrary05.SymphonyInterface.clsSymInterfaceSearchField(){
+                        SearchIndex = 4,
+                        VisibleEdit = false
+                    }
+                }
+            };
+            _searchVendedor = dpLibrary05.Infrastructure.Helpers.clsSymSearch.find_vendedor(prmVendendor);
+
+
+            return _searchVendedor;
 
         }
 
