@@ -118,6 +118,12 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
 
             _orcamentoList.DataSourceChanged += _orcamentoList_DataSourceChanged;
 
+
+            if (rangeDate.Date1.Parent is TableLayoutPanel t)
+            {
+                t.Width = 300;
+            }
+
         }
         private void _orcamentoList_DataSourceChanged(object sender, Dataplace.Core.win.Controls.List.Delegates.DataSourceChangedEventArgs<OrcamentoViewModel> e)
         {
@@ -460,6 +466,7 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
         private void opt_Click(object sender, EventArgs e)
         {
             VerificarStatusControles();
+
         }
 
 
