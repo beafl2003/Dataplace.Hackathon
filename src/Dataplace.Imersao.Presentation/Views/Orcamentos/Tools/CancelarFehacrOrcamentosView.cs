@@ -334,14 +334,18 @@ namespace Dataplace.Imersao.Presentation.Views.Orcamentos.Tools
             configuration.AllowSort();
             configuration.AllowFilter();
 
-            // configuration.Property(x => x.NumOrcamento)
-            //    .HasButton(dpLibrary05.mGenerico.oImageList.imgList16.Images[dpLibrary05.mGenerico.oImageList.SETA_AZUL_PEQ], (sender, e) => {
-            //        var item = (OrcamentoViewModel)sender;
-            //        _eventAggregator.PublishEvent(new OrcamentoSetaAzulClick(item.NumOrcamento));
-            //    });
+
+            // seta azul
 
 
-            configuration.Property(x => x.Situacao)
+             configuration.Property(x => x.NumOrcamento)
+                .HasButton(dpLibrary05.mGenerico.oImageList.imgList16.Images[dpLibrary05.mGenerico.oImageList.SETA_AZUL_PEQ], (sender, e) => {
+                    var item = (OrcamentoViewModel)sender;
+                    _eventAggregator.PublishEvent(new OrcamentoSetaAzulClick(item.NumOrcamento));
+                });
+
+
+                        configuration.Property(x => x.Situacao)
                   .HasMinWidth(100)
                   .HasCaption("Situação")
                   .HasValueItems(x =>
